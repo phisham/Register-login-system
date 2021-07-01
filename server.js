@@ -35,7 +35,7 @@ app.post("/done",function(req,res){
     var n4=req.body.TWO;
     
       
-     for(var i=1;i<2;i++){
+     
       var fr=fs.readFile('nameuser.txt','utf-8',function(err,n1){
           if(err) throw err;
           var h=n1.search(n3+' ');
@@ -56,20 +56,10 @@ app.post("/done",function(req,res){
 
 
 
-
-    }
-
-
-   
-
 })
 
 
  
-    
-
-
-
 app.listen(3600,function(){
     console.log("Server has started on port 3600");
 });
