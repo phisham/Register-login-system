@@ -15,51 +15,44 @@ app.get("/done",function(req,res){
 app.post("/",function(req,res){
    var n1=req.body.one;
    var n2=req.body.two;
+   var n=n1.concat(n2);
 
-   var fileuser=fs.appendFile('nameuser.txt',n1+' ',function(err){
+   var sec=fs.readFile('namereg.txt','utf-8',function(err,data){
        if(err) throw err;
-   });
-   
-   var filepass=fs.appendFile('namepass.txt',n2+' ',function(err){
-       if(err) throw err;
+       var a=data.search(n1);
+       var b=data.search(n2);
+       if(a!=-1 || b!=-1){
+           
+         res.send("This username or password exist !!!please change the username/password.");
+           
+       }
 
    })
-
-
-
- res.send("Successfully Registered!!");
-
+    var fileuser=fs.appendFile('namereg.txt',n+' ',function(err){
+        if(err) throw err;
+        res.send("Successfully Registered!!!");
+    });
+   
 })
+
 app.post("/done",function(req,res){
     var n3=req.body.ONE;
     var n4=req.body.TWO;
-    
-      
+    var read_n=n3.concat(n4);
      
-      var fr=fs.readFile('nameuser.txt','utf-8',function(err,n1){
+      var fr=fs.readFile('namereg.txt','utf-8',function(err,data){
           if(err) throw err;
-          var h=n1.search(n3+' ');
+          var h=data.search(read_n+' ');
           if(h==-1){
             res.send("Login Failed!!");
           }
-          
+          else res.send("Login Successful!!!")
       })
-      var fr3=fs.readFile('namepass.txt','utf-8',function(err,n2){
-          if(err) throw err;
-          var k=n2.search(n4+' ');
-          if(k==-1){
-              res.send("Login Failed!!");
-          }
-          else res.send("Login Successful!!!");
-      })
+     
       
-
-
-
 })
 
 
- 
 app.listen(3600,function(){
     console.log("Server has started on port 3600");
 });
