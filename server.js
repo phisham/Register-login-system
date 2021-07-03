@@ -22,19 +22,21 @@ app.post("/",function(req,res){
        var a=data.search(n1);
        var b=data.search(n2);
        if(a!=-1 || b!=-1){
-           
-         res.send("This username or password exist !!!please change the username/password.");
-           
+           res.send("This username or password exist !!!please change the username/password.");
+       }
+       else {
+            var fileuser=fs.appendFile('namereg.txt',n+' ',function(err){
+                    if(err) throw err;
+                    res.send("Successfully Registered!!!");
+            });
+   
        }
 
    })
-    var fileuser=fs.appendFile('namereg.txt',n+' ',function(err){
-        if(err) throw err;
-        res.send("Successfully Registered!!!");
-    });
    
-})
+ 
 
+})
 app.post("/done",function(req,res){
     var n3=req.body.ONE;
     var n4=req.body.TWO;
@@ -56,3 +58,4 @@ app.post("/done",function(req,res){
 app.listen(3600,function(){
     console.log("Server has started on port 3600");
 });
+
